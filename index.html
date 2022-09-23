@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
     <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/global.css" />
     <script src="./assets/vendor/bootstrap/js/popper.min.js"></script>
     <script src="./assets/vendor/bootstrap/js/bootstrap.min.js"></script>
   </head>
@@ -47,52 +48,48 @@
       </div>
     </div>
 
-    <div class="dropup position-fixed bottom-0 end-0 mb-4 me-4">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">?</button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">How to export database?</a></li>
-        <li><a class="dropdown-item" href="#">How to import database?</a></li>
-        <li><a class="dropdown-item" href="#">Social Media of Creator</a></li>
-      </ul>
-    </div>
-
     <script>
+      var todolist = [];
+
+      if (localStorage.getItem("todolist") !== null) {
+        todolist = JSON.parse(localStorage.getItem("todolist"));
+      }
+
       window.onload = function () {
         loadNotFinishedTodolist();
       };
 
       function loadNotFinishedTodolist() {
-        var todolist = {
-          notFinished: [
-            "Buat CV Kelebihan Diri Frontline",
-            "Re-test ke-3 Pelajaran Mikro Ekonomi",
-            "Tugas Presentasi Pengantar Manajement The Intern",
-          ],
-          finished: {},
-        };
-
-        if (localStorage.getItem("todolist") !== null) {
-          todolist = localStorage.getItem("todolist");
-        }
-
-        todolist.notFinished.forEach(function (todo) {
-          insertRow(todo);
+        todolist.forEach(function (todo) {
+          if (todo.status === "notFinished") {
+            insertRow(todo.id, todo.name);
+          }
         });
       }
 
-      function hideRow(checkbox) {
-        checkbox.closest("tr").className = "d-none";
+      function hideRow(id) {
+        todoIndex = todolist.findIndex((todo) => todo.id === id);
+        todolist[todoIndex].status = "finished";
+        localStorage.setItem("todolist", JSON.stringify(todolist));
+        document.getElementById(`todolist${id}`).className = "d-none";
       }
 
-      function insertRow(name = "") {
+      function insertRow(id = "", name = "") {
         var table = document.getElementsByTagName("tbody")[0];
         var row = table.insertRow();
+        row.id = `todolist${id}`;
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         cell1.setAttribute("class", "text-center");
-        cell1.innerHTML = `<input type="checkbox" onchange="hideRow(this)">`;
+        cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onchange="hideRow(${id})">`;
         cell2.setAttribute("contenteditable", true);
-        cell2.innerHTML = name;
+        cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" onchange="editTodolist(${id})">`;
+      }
+
+      function editTodolist(id) {
+        todoIndex = todolist.findIndex((todo) => todo.id === id);
+        todolist[todoIndex].name = document.getElementById(`input-todolist${id}`).value;
+        localStorage.setItem("todolist", JSON.stringify(todolist));
       }
     </script>
   </body>

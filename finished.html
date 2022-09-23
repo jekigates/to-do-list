@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
     <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/global.css" />
     <script src="./assets/vendor/bootstrap/js/bootstrap.min.js"></script>
   </head>
   <body>
@@ -54,34 +55,47 @@
     </div>
 
     <script>
+      var todolist = [];
+
+      if (localStorage.getItem("todolist") !== null) {
+        todolist = JSON.parse(localStorage.getItem("todolist"));
+      }
+
       window.onload = function () {
         loadFinishedTodolist();
       };
 
       function loadFinishedTodolist() {
-        var todolist = {
-          notFinished: [],
-          finished: ["Buat Video Perkenalan WGG"],
-        };
-
-        if (localStorage.getItem("todolist") !== null) {
-          todolist = localStorage.getItem("todolist");
-        }
-
-        todolist.finished.forEach(function (todo) {
-          insertRow(todo);
+        todolist.forEach(function (todo) {
+          if (todo.status === "finished") {
+            insertRow(todo.id, todo.name);
+          }
         });
       }
 
-      function insertRow(name) {
+      function hideRow(id) {
+        todoIndex = todolist.findIndex((todo) => todo.id === id);
+        todolist[todoIndex].status = "notFinished";
+        localStorage.setItem("todolist", JSON.stringify(todolist));
+        document.getElementById(`todolist${id}`).className = "d-none";
+      }
+
+      function insertRow(id = "", name = "") {
         var table = document.getElementsByTagName("tbody")[0];
         var row = table.insertRow();
+        row.id = `todolist${id}`;
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         cell1.setAttribute("class", "text-center");
-        cell1.innerHTML = `<input type="checkbox" checked>`;
+        cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onchange="hideRow(${id})" checked>`;
         cell2.setAttribute("contenteditable", true);
-        cell2.innerHTML = name;
+        cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" onchange="editTodolist(${id})">`;
+      }
+
+      function editTodolist(id) {
+        todoIndex = todolist.findIndex((todo) => todo.id === id);
+        todolist[todoIndex].name = document.getElementById(`input-todolist${id}`).value;
+        localStorage.setItem("todolist", JSON.stringify(todolist));
       }
     </script>
   </body>
