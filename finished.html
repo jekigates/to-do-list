@@ -93,7 +93,7 @@
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         cell1.setAttribute("class", "text-center");
-        cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onchange="hideRow(${id})" checked>`;
+        cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onclick="hideRow(${id})" checked>`;
         cell2.setAttribute("contenteditable", true);
         cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" onchange="editTodolist(${id})">`;
       }
