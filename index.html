@@ -103,13 +103,14 @@
         cell1.setAttribute("class", "text-center");
         cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onchange="hideRow(${id})">`;
         cell2.setAttribute("contenteditable", true);
-        cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" onclick="editTodolist(${id})">`;
+        cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" oninput="editTodolist(${id})">`;
       }
 
       function editTodolist(id) {
         todoIndex = todolist.findIndex((todo) => todo.id === id);
         todolist[todoIndex].name = document.getElementById(`input-todolist${id}`).value;
         localStorage.setItem("todolist", JSON.stringify(todolist));
+        console.log("hai");
       }
     </script>
   </body>
