@@ -1,8 +1,8 @@
-function loadTodolists(type = "") {
+function loadTodolists(type = "", checked = false) {
   table.innerHTML = "";
   todolist.forEach(function (todo) {
     if (todo.status === type) {
-      insertRow(todo.id, todo.name);
+      insertRow(todo.id, todo.name, false, checked);
     }
   });
 }
@@ -32,7 +32,7 @@ function editTodolist(id) {
   localStorage.setItem("todolist", JSON.stringify(todolist));
 }
 
-function insertRow(id = "", name = "", create = false) {
+function insertRow(id = "", name = "", create = false, checked = false) {
   var row = table.insertRow();
 
   if (create === true) {
@@ -45,14 +45,18 @@ function insertRow(id = "", name = "", create = false) {
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
   cell1.setAttribute("class", "text-center");
-  cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onclick="hideRow(${id})">`;
+
+  cell1.innerHTML =
+    checked === false
+      ? `<input type="checkbox" id="checkbox${id}" onclick="hideRow(this, ${id})">`
+      : `<input type="checkbox" id="checkbox${id}" onclick="hideRow(this, ${id})" checked>`;
   cell2.setAttribute("contenteditable", true);
   cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" oninput="editTodolist(${id})">`;
 }
 
-function hideRow(id) {
+function hideRow(checkbox, id) {
   todoIndex = todolist.findIndex((todo) => todo.id === id);
-  todolist[todoIndex].status = "finished";
+  todolist[todoIndex].status = checkbox.checked === false ? "notFinished" : "finished";
   localStorage.setItem("todolist", JSON.stringify(todolist));
   document.getElementById(`todolist${id}`).className = "d-none";
 }
