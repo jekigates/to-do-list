@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./assets/css/global.css" />
     <script src="./assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="./assets/vendor/sweetalert2/sweetalert2@11.js"></script>
+    <script src="./assets/js/global.js"></script>
   </head>
   <body>
     <div class="container-fluid mb-4">
@@ -25,7 +26,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <button class="btn btn-primary disabled" onclick="insertRow('', '', true);">Create</button>
-              <button class="btn btn-outline-danger ms-2" onclick="deleteTodolist()">Delete All Todolists</button>
+              <button class="btn btn-outline-danger ms-2" onclick="deleteTodolists()">Delete All Todolists</button>
             </div>
             <div class="form-check form-switch form-check-reverse">
               <input
@@ -73,60 +74,8 @@
       }
 
       window.onload = function () {
-        loadFinishedTodolist();
+        loadTodolists("finished");
       };
-
-      function loadFinishedTodolist() {
-        table.innerHTML = "";
-        todolist.forEach(function (todo) {
-          if (todo.status === "finished") {
-            insertRow(todo.id, todo.name);
-          }
-        });
-      }
-
-      function hideRow(id) {
-        todoIndex = todolist.findIndex((todo) => todo.id === id);
-        todolist[todoIndex].status = "notFinished";
-        localStorage.setItem("todolist", JSON.stringify(todolist));
-        document.getElementById(`todolist${id}`).className = "d-none";
-      }
-
-      function insertRow(id = "", name = "") {
-        var row = table.insertRow();
-        row.id = row.id = `todolist${id}`;
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.setAttribute("class", "text-center");
-        cell1.innerHTML = `<input type="checkbox" id="checkbox${id}" onclick="hideRow(${id})" checked>`;
-        cell2.setAttribute("contenteditable", true);
-        cell2.innerHTML = `<input type="input" class="input-todolist" id="input-todolist${id}" value="${name}" onchange="editTodolist(${id})">`;
-      }
-
-      function editTodolist(id) {
-        todoIndex = todolist.findIndex((todo) => todo.id === id);
-        todolist[todoIndex].name = document.getElementById(`input-todolist${id}`).value;
-        localStorage.setItem("todolist", JSON.stringify(todolist));
-      }
-
-      function deleteTodolist() {
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete them!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            localStorage.removeItem("todolist");
-            Swal.fire("Deleted!", "Your todolists have been deleted.", "success");
-            todolist = [];
-            loadFinishedTodolist();
-          }
-        });
-      }
     </script>
   </body>
 </html>
