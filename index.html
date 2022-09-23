@@ -20,7 +20,7 @@
     <div class="container">
       <div class="row mb-4">
         <div class="col-12">
-          <button class="btn btn-primary">Create</button>
+          <button class="btn btn-primary" onclick="insertRow()">Create</button>
         </div>
       </div>
       <div class="row">
@@ -29,26 +29,28 @@
             <table class="table table-bordered table-hover">
               <thead class="table-primary">
                 <tr>
-                  <th class="text-center" style="width: 5%">No.</th>
-                  <th style="width: 80%">Name</th>
-                  <th style="width: 15%">Status</th>
+                  <th class="text-center" style="width: 10%">Status</th>
+                  <th style="width: 90%">Name</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="text-center">1</th>
+                  <th class="text-center">
+                    <input type="checkbox">
+                  </th>
                   <td contenteditable style="cursor: pointer;">Buat CV Kelebihan Diri Frontline</td>
-                  <td class="text-secondary fw-bold">Not Started</td>
                 </tr>
                 <tr>
-                  <th class="text-center">2</td>
+                  <th class="text-center">
+                    <input type="checkbox">
+                  </td>
                   <td contenteditable style="cursor: pointer;">Re-test ke-3 Pelajaran Mikro Ekonomi</td>
-                  <td class="text-warning fw-bold">Doing</td>
                 </tr>
                 <tr>
-                  <th class="text-center">3</th>
+                  <th class="text-center">
+                    <input type="checkbox">
+                  </th>
                   <td contenteditable style="cursor: pointer;">Tugas Presentasi Pengantar Manajement The Intern</td>
-                  <td class="text-success fw-bold">Finished</td>
                 </tr>
               </tbody>
             </table>
@@ -56,5 +58,17 @@
         </div>
       </div>
     </div>
+
+    <script>
+      function insertRow() {
+        var table = document.getElementsByTagName("table")[0];
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.setAttribute("class", "text-center");
+        cell1.innerHTML = `<input type="checkbox">`;
+        cell2.setAttribute("contenteditable", true);
+      }
+    </script>
   </body>
 </html>
