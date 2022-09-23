@@ -34,19 +34,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr id="todolist">
                   <th class="text-center">
                     <input type="checkbox">
                   </th>
                   <td contenteditable style="cursor: pointer;">Buat CV Kelebihan Diri Frontline</td>
                 </tr>
-                <tr>
+                <tr id="todolist2">
                   <th class="text-center">
                     <input type="checkbox">
                   </td>
                   <td contenteditable style="cursor: pointer;">Re-test ke-3 Pelajaran Mikro Ekonomi</td>
                 </tr>
-                <tr>
+                <tr id="todolist3">
                   <th class="text-center">
                     <input type="checkbox">
                   </th>
@@ -60,6 +60,14 @@
     </div>
 
     <script>
+      var checkboxes = document.querySelectorAll(`input[type="checkbox"]`);
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.onchange = function() {
+          checkbox.closest("tr").className = "d-none";
+        };
+      });
+
       function insertRow() {
         var table = document.getElementsByTagName("table")[0];
         var row = table.insertRow();
