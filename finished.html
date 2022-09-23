@@ -22,7 +22,7 @@
       <div class="row mb-4">
         <div class="col-12">
           <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-primary disabled" onclick="insertRow()">Create</button>
+            <button class="btn btn-primary disabled">Create</button>
             <div class="form-check form-switch form-check-reverse">
               <input
                 class="form-check-input"
@@ -50,6 +50,12 @@
               <tbody></tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <p class="text-secondary mb-0">Note : We store your todolist database in your website's local storage.</p>
+          <p class="text-primary fw-bold mb-0">Made with <span>&hearts;</span> by Jeki Gates</p>
         </div>
       </div>
     </div>
@@ -83,7 +89,7 @@
       function insertRow(id = "", name = "") {
         var table = document.getElementsByTagName("tbody")[0];
         var row = table.insertRow();
-        row.id = `todolist${id}`;
+        row.id = row.id = `todolist${id}`;
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         cell1.setAttribute("class", "text-center");
