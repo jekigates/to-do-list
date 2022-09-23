@@ -21,10 +21,17 @@
       <div class="row mb-4">
         <div class="col-12">
           <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-primary" onclick="insertRow()">Create</button>
+            <button class="btn btn-primary disabled" onclick="insertRow()">Create</button>
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="location.href = 'finished.html'">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Not Finished</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                checked
+                onchange="location.href = 'index.html'"
+              />
+              <label class="form-check-label" for="flexSwitchCheckDefault">Finished</label>
             </div>
           </div>
         </div>
@@ -42,21 +49,9 @@
               <tbody>
                 <tr id="todolist">
                   <th class="text-center">
-                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox" checked />
                   </th>
-                  <td contenteditable style="cursor: pointer;">Buat CV Kelebihan Diri Frontline</td>
-                </tr>
-                <tr id="todolist2">
-                  <th class="text-center">
-                    <input type="checkbox" class="checkbox">
-                  </td>
-                  <td contenteditable style="cursor: pointer;">Re-test ke-3 Pelajaran Mikro Ekonomi</td>
-                </tr>
-                <tr id="todolist3">
-                  <th class="text-center">
-                    <input type="checkbox" class="checkbox">
-                  </th>
-                  <td contenteditable style="cursor: pointer;">Tugas Presentasi Pengantar Manajement The Intern</td>
+                  <td contenteditable style="cursor: pointer">Buat Video Perkenalan WGG</td>
                 </tr>
               </tbody>
             </table>
@@ -68,8 +63,8 @@
     <script>
       var checkboxes = document.querySelectorAll(`.checkbox`);
 
-      checkboxes.forEach(function(checkbox) {
-        checkbox.onchange = function() {
+      checkboxes.forEach(function (checkbox) {
+        checkbox.onchange = function () {
           checkbox.closest("tr").className = "d-none";
         };
       });
