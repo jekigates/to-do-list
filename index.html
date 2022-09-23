@@ -9,6 +9,52 @@
     <script src="./assets/vendor/bootstrap/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <h1>Web Note</h1>
+    <div class="container-fluid mb-4">
+      <div class="row p-4 bg-primary text-white text-center">
+        <div class="col-12">
+          <h2>To Do List</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12">
+          <button class="btn btn-primary">Create</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead class="table-primary">
+                <tr>
+                  <th class="text-center" style="width: 5%">No.</th>
+                  <th style="width: 80%">Name</th>
+                  <th style="width: 15%">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="text-center">1</th>
+                  <td contenteditable style="cursor: pointer;">Buat CV Kelebihan Diri Frontline</td>
+                  <td class="text-secondary fw-bold">Not Started</td>
+                </tr>
+                <tr>
+                  <th class="text-center">2</td>
+                  <td contenteditable style="cursor: pointer;">Re-test ke-3 Pelajaran Mikro Ekonomi</td>
+                  <td class="text-warning fw-bold">Doing</td>
+                </tr>
+                <tr>
+                  <th class="text-center">3</th>
+                  <td contenteditable style="cursor: pointer;">Tugas Presentasi Pengantar Manajement The Intern</td>
+                  <td class="text-success fw-bold">Finished</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
